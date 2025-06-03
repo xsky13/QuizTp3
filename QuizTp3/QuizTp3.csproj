@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <Reference Include="Libreria2025">
-      <HintPath>..\..\parcial 1\AdmProyectos\AdmProyectos\AdmProyectos\Libreria2025.dll</HintPath>
+      <HintPath>D:\D\Universidad\2do año\Programacion 1\Parciales\Parcial 1\AdmProyectos\AdmProyectos\Libreria2025.dll</HintPath>
     </Reference>
   </ItemGroup>
 
