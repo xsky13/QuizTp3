@@ -1,5 +1,6 @@
 ﻿using System.Data.SQLite;
 using QuizTp3.Controladores;
+using QuizTp3.Controladores.Autenticacion;
 
 namespace QuizTp3
 {
@@ -9,7 +10,7 @@ namespace QuizTp3
         {
             Conexion.OpenConnection();
 
-            Console.WriteLine("Hello, World!");
+            Registrar.Registrarse();
 
             Conexion.CloseConnection();
         }

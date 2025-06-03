@@ -12,4 +12,10 @@
     <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Libreria2025">
+      <HintPath>..\..\parcial 1\AdmProyectos\AdmProyectos\AdmProyectos\Libreria2025.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
