@@ -16,11 +16,6 @@ namespace QuizTp3
             Conexion.OpenConnection();
 
             Menu();
-            //Registrar.Registrarse();
-            //var usuario = Login.Main();
-            //usuarioActual = usuario.current;
-
-            //if (usuario.verificado) Console.WriteLine($"Ingreso el usuario {usuarioActual.Username}");
 
             Conexion.CloseConnection();
         }
