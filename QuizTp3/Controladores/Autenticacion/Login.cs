@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SQLite;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using QuizTp3.Modelos;
+
+namespace QuizTp3.Controladores.Autenticacion
+{
+    internal class Login
+    {
+        public static (bool verificado, Usuario current) Main()
+        {
+            Usuario usuario = new();
+
+            bool verificado = false;
+            while (verificado == false)
+            {
+                Console.Write("Ingrese su usuario: ");
+                string ingreso = Console.ReadLine();
+
+                Usuario u = VerificarUsuario(ingreso);
+                if (u != null)
+                {
+                    usuario = u;
+                    verificado = true;
+                    break;
+                }
+
+                Console.WriteLine("Este usuario no existe. Por favor intente de nuevo...");
+                Console.ReadKey(true);
+            }
+
+            bool pwdVerificado = false;
+            while (pwdVerificado == false)
+            {
+                Console.Write("Ingrese su contrasena: ");
+                string pwd = Console.ReadLine();
+
+                if (pwd == usuario.Pwd)
+                {
+                    pwdVerificado = true;
+                    break;
+                }
+
+                Console.WriteLine("Su contrasena es incorrecta. Por favor intente de nuevo...");
+                Console.ReadKey(true);
+            }
+
+            return (true, usuario);
+        }
+
+        public static Usuario VerificarUsuario(string usuario)
+        {
+            Usuario user = Persistencia.getByUsername(usuario);
+
+            if (user != null)
+            {
+                return user;
+            }
+
+            return null;
+        }
+    }
+}

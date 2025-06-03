@@ -24,5 +24,41 @@ namespace QuizTp3.Controladores.Autenticacion
             long lastId = (long)cmd.ExecuteScalar();
             return (int)lastId;
         }
+
+        public static Usuario getByUsername(string usuario)
+        {
+            SQLiteCommand cmd = new("SELECT * FROM user WHERE usuario=@usuario");
+            cmd.Connection = Conexion.Connection;
+
+            cmd.Parameters.Add(new SQLiteParameter("@usuario", usuario));
+
+            Usuario user = new();
+            SQLiteDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                return new Usuario(dr.GetInt32(0), dr.GetString(1), dr.GetString(2));
+            }
+
+            return null;
+        }
+
+        public static Usuario getById(int id)
+        {
+            SQLiteCommand cmd = new("SELECT * FROM user WHERE id=@id");
+            cmd.Connection = Conexion.Connection;
+
+            cmd.Parameters.Add(new SQLiteParameter("@id", id));
+
+            Usuario user = new();
+            SQLiteDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                user.Id = dr.GetInt32(0);
+                user.Username = dr.GetString(1);
+                user.Pwd = dr.GetString(2);
+            }
+
+            return user;
+        }
     }
 }
