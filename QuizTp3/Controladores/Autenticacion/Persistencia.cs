@@ -60,5 +60,6 @@ namespace QuizTp3.Controladores.Autenticacion
 
             return user;
         }
+
     }
 }
