@@ -10,7 +10,7 @@ namespace QuizTp3.Modelos
     {
         public int id {  get; set; }
         public string Enunciado { get; set; }
-        public List<string> Opciones { get; set; }
+        public List<Opcion> Opciones { get; set; }
         public int RespuestaCorrecta { get; set; }
         public Categoria categoria { get; set; }
         public Dificultad Dificultad { get; set; }
