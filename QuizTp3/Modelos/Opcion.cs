@@ -10,6 +10,6 @@ namespace QuizTp3.Modelos
     {
         public int Id { get; set; }
         public string Texto { get; set; }
-        public bool Correcta { get; set; }
+        public int NumeroOpcion { get; set; }
     }
 }

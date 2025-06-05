@@ -13,6 +13,7 @@ namespace QuizTp3.Controladores
     {
         private readonly nPregunta _preguntas;
         private readonly nUsuario _usuario;
+        public static int Puntaje;
 
         public nJuego(nPregunta preguntas, nUsuario usuario)
         {
@@ -123,7 +124,14 @@ namespace QuizTp3.Controladores
                 Console.WriteLine($"Pregunta numero {i}: ");
                 Console.WriteLine(preguntas[i].Enunciado);
                 i++;
+
+                foreach (Opcion opcion in preguntas[i].Opciones)
+                {
+                    Console.WriteLine($"{opcion.NumeroOpcion}. {opcion.Texto}");
+                }
             }
+
+
         }
     }
 }
