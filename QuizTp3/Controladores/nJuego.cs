@@ -45,6 +45,7 @@ namespace QuizTp3.Controladores
                 i++;
                 preguntas.Remove(preguntas[i]);
             }
+            Program.MenuPrincipal();
         }
 
         public static void verificarSeleccion(Pregunta pregunta)

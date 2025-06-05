@@ -18,6 +18,11 @@ namespace QuizTp3
             Conexion.OpenConnection();
             IniciarDatos();
             Menu();
+            MenuPrincipal();
+        }
+
+        public static void MenuPrincipal()
+        {
             Console.Clear();
             string[] opciones = { "Jugar", "Podio", "Salir" };
             int seleccion = Herramienta.MenuSeleccionar(opciones, 1, $"Bienvenido, {usuarioActual.Username}");
@@ -29,7 +34,6 @@ namespace QuizTp3
             }
             Conexion.CloseConnection();
         }
-
         static void Menu()
         {
             string[] opciones = { "Registrarse", "Iniciar sesion" };
