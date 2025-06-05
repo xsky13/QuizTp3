@@ -26,6 +26,7 @@ namespace QuizTp3.Controladores
             int i = 0;
             while (i < preguntas.Count)
             {
+                Console.WriteLine($"Preguntas restantes: {preguntas.Count}");
                 Console.WriteLine($"Pregunta numero {i + 1}: ");
                 Console.WriteLine(preguntas[i].Enunciado);
 
@@ -43,7 +44,6 @@ namespace QuizTp3.Controladores
 
                 Console.ReadKey();
                 i++;
-                preguntas.Remove(preguntas[i]);
             }
             Program.MenuPrincipal();
         }
