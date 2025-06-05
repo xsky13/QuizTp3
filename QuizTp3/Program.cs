@@ -23,7 +23,7 @@ namespace QuizTp3
             int seleccion = Herramienta.MenuSeleccionar(opciones, 1, $"Bienvenido, {usuarioActual.Username}");
             switch (seleccion)
             {
-                case 1: nJuego.Jugar(usuarioActual, categorias, dificultades); break;
+                case 1: pPregunta.GetAll(usuarioActual, categorias, dificultades); break;
                 //case 2: nJuego.; break;
                 case 3: break;
             }
