@@ -46,7 +46,9 @@ namespace QuizTp3.Controladores.Autenticacion
                 pwd = ingreso;
             }
 
-            int id = Persistencia.Save(usuario, pwd);
+            string hash = AuthHelper.Hashear(pwd);
+            int id = Persistencia.Save(usuario, hash);
+
             Usuario u = new(id, usuario, pwd);
 
             // iniciar al usuario en el sistema
