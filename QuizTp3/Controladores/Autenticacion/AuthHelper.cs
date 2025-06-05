@@ -16,7 +16,13 @@ namespace QuizTp3.Controladores.Autenticacion
 
         public static bool Verificar(string password, string hashedPassword)
         {
-            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+            try
+            {
+                return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+            } catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }
