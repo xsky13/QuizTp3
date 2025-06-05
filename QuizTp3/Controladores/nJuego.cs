@@ -125,6 +125,7 @@ namespace QuizTp3.Controladores
                 Console.WriteLine(preguntas[i].Enunciado);
                 i++;
 
+
                 foreach (Opcion opcion in preguntas[i].Opciones)
                 {
                     Console.WriteLine($"{opcion.NumeroOpcion}. {opcion.Texto}");
