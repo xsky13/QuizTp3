@@ -13,6 +13,8 @@ namespace QuizTp3.Controladores.Autenticacion
     {
         public static (bool verificado, Usuario current) Main()
         {
+            Console.Clear();
+            Console.WriteLine("INICIAR SESION");
             Usuario usuario = new();
             bool verificado = false;
 
@@ -50,6 +52,10 @@ namespace QuizTp3.Controladores.Autenticacion
                     Console.ReadKey(true);
                 }
             }
+
+            // iniciar al usuario en el sistema
+            Program.loggedIn = true;
+            Program.usuarioActual = usuario;
 
             return (true, usuario);
         }

@@ -14,6 +14,8 @@ namespace QuizTp3.Controladores.Autenticacion
 
         public static void Registrarse()
         {
+            Console.Clear();
+            Console.WriteLine("REGISTRARSE");
             bool usuarioVerificado = false;
             string usuario = "";
 
@@ -47,10 +49,11 @@ namespace QuizTp3.Controladores.Autenticacion
             string hash = AuthHelper.Hashear(pwd);
             int id = Persistencia.Save(usuario, hash);
 
-            Usuario u = new(id, usuario, pwd);
+            Usuario u = new(id, usuario, pwd,0);
 
-
-            Console.WriteLine($"{u.Id}, {u.Username}, {u.Pwd}");
+            // iniciar al usuario en el sistema
+            Program.loggedIn = true;
+            Program.usuarioActual = u;
         }
 
         public static (bool verificado, string? usuario) CrearUsuario()
@@ -81,6 +84,7 @@ namespace QuizTp3.Controladores.Autenticacion
                 Console.WriteLine("Este usuario ya esta en uso. Por favor intente de nuevo...");
                 Console.ReadKey(true);
             }
+
 
             return (verificado, usuario);
         }
