@@ -22,7 +22,6 @@ namespace QuizTp3.Controladores
                 Opcion o = new Opcion();
                 o.Id = dr.GetInt32(0);
                 o.Texto = dr.GetString(1);
-                o.NumeroOpcion = dr.GetInt32(2);
                 opciones.Add(o);
             }
             return opciones;

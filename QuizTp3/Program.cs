@@ -35,7 +35,7 @@ namespace QuizTp3
             string[] opciones = { "Registrarse", "Iniciar sesion" };
             int opcion = Herramienta.MenuSeleccionar(opciones, 0, "Eliga una opcion");
 
-            switch(opcion)
+            switch (opcion)
             {
                 case 1: Registrar.Registrarse(); break;
                 case 2: Login.Main(); break;

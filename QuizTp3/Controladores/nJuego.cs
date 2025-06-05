@@ -26,22 +26,62 @@ namespace QuizTp3.Controladores
             int i = 0;
             while (i < preguntas.Count)
             {
-                Console.WriteLine($"Pregunta numero {i}: ");
+                Console.WriteLine($"Pregunta numero {i + 1}: ");
                 Console.WriteLine(preguntas[i].Enunciado);
-                i++;
 
                 preguntas[i].Opciones = pOpcion.GetbyId(preguntas[i].id);
 
+                int j = 1;
                 foreach (Opcion opcion in preguntas[i].Opciones)
                 {
-                    Console.WriteLine($"{opcion.NumeroOpcion}. {opcion.Texto}");
+                    Console.WriteLine($"{j}. {opcion.Texto}");
+                    j++;
                 }
 
-                Console.WriteLine("fuap");
+                Console.WriteLine("Seleccione una opcion: ");
+                verificarSeleccion(preguntas[i]);
+
+                Console.ReadKey();
+                i++;
                 preguntas.Remove(preguntas[i]);
             }
+        }
 
+        public static void verificarSeleccion(Pregunta pregunta)
+        {
+            string selector = Console.ReadLine();
+            int seleccion = 0;
 
+            if (selector == "1")
+            {
+                seleccion = pregunta.Opciones[0].Id;
+            }
+            else if (selector == "2")
+            {
+                seleccion = pregunta.Opciones[1].Id;
+            }
+            else if (selector == "3")
+            {
+                seleccion = pregunta.Opciones[2].Id;
+            }
+            else if (selector == "4")
+            {
+                seleccion = pregunta.Opciones[3].Id;
+            }
+            else
+            {
+                Console.WriteLine(" Vuelve a intentarlo. Selecciona un numero del 1 al 4... ");
+                verificarSeleccion(pregunta);
+            }
+
+            if (seleccion == pregunta.RespuestaCorrecta)
+            {
+                Console.WriteLine("Respuesta CORRECTA");
+            }
+            else
+            {
+                Console.WriteLine("Respuesta INCORRECTA");
+            }
         }
     }
 }
