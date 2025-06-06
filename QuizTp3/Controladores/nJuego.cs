@@ -23,10 +23,11 @@ namespace QuizTp3.Controladores
 
         public static void ComenzarJuego(List<Pregunta> preguntas)
         {
+
             int i = 0;
             while (i < preguntas.Count)
             {
-                Console.WriteLine($"Preguntas restantes: {preguntas.Count}");
+                Console.Clear();
                 Console.WriteLine($"Pregunta numero {i + 1}: ");
                 Console.WriteLine(preguntas[i].Enunciado);
 
@@ -42,8 +43,17 @@ namespace QuizTp3.Controladores
                 Console.WriteLine("Seleccione una opcion: ");
                 verificarSeleccion(preguntas[i]);
 
-                Console.ReadKey();
+                Console.ReadKey(true);                
                 i++;
+            }
+            if (Program.usuarioActual.Puntaje < Program.puntaje) 
+            {
+                SQLiteCommand cmd = new SQLiteCommand("UPDATE user SET puntaje = @puntaje WHERE id = @id");
+                cmd.Parameters.Add(new SQLiteParameter("@puntaje", Program.puntaje));
+                cmd.Parameters.Add(new SQLiteParameter("@id", Program.usuarioActual.Id));
+                cmd.Connection = Conexion.Connection;
+                cmd.ExecuteNonQuery();
+
             }
             Program.MenuPrincipal();
         }
@@ -78,10 +88,12 @@ namespace QuizTp3.Controladores
             if (seleccion == pregunta.RespuestaCorrecta)
             {
                 Console.WriteLine("Respuesta CORRECTA");
+                Program.puntaje += pregunta.Dificultad.puntos;
             }
             else
             {
                 Console.WriteLine("Respuesta INCORRECTA");
+                Program.puntaje -= pregunta.Dificultad.puntos / 2;
             }
         }
     }
