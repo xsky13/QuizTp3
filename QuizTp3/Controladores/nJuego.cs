@@ -14,6 +14,7 @@ namespace QuizTp3.Controladores
         private readonly pPregunta _preguntas;
         private readonly nUsuario _usuario;
         public static int Puntaje;
+        public static int Acertadas;
 
         public nJuego(pPregunta preguntas, nUsuario usuario)
         {
@@ -23,7 +24,7 @@ namespace QuizTp3.Controladores
 
         public static void ComenzarJuego(List<Pregunta> preguntas)
         {
-
+            Console.Clear();
             int i = 0;
             while (i < preguntas.Count)
             {
@@ -46,54 +47,79 @@ namespace QuizTp3.Controladores
                 Console.ReadKey(true);                
                 i++;
             }
-            if (Program.usuarioActual.Puntaje < Program.puntaje) 
-            {
-                SQLiteCommand cmd = new SQLiteCommand("UPDATE user SET puntaje = @puntaje WHERE id = @id");
-                cmd.Parameters.Add(new SQLiteParameter("@puntaje", Program.puntaje));
-                cmd.Parameters.Add(new SQLiteParameter("@id", Program.usuarioActual.Id));
-                cmd.Connection = Conexion.Connection;
-                cmd.ExecuteNonQuery();
 
-            }
+            Console.Clear();
+            Console.WriteLine($"PUNTAJE: {Puntaje}");
+            Console.WriteLine($"ACERTADAS: {Acertadas}/10");
+
+            
+
+            SQLiteCommand cmd = new SQLiteCommand("UPDATE user SET puntaje = @puntaje, cantidadJuegos=@cantidadJuegos, cantidadAciertos=@cantidadAciertos WHERE id = @id");
+            cmd.Parameters.Add(new SQLiteParameter("@puntaje", Program.usuarioActual.Puntaje + Puntaje));
+            cmd.Parameters.Add(new SQLiteParameter("@cantidadJuegos", Program.usuarioActual.Juegos + 1));
+            cmd.Parameters.Add(new SQLiteParameter("@cantidadAciertos", Program.usuarioActual.Aciertos + Acertadas));
+            cmd.Parameters.Add(new SQLiteParameter("@id", Program.usuarioActual.Id));
+            cmd.Connection = Conexion.Connection;
+            cmd.ExecuteNonQuery();
+
+            Program.usuarioActual.Puntaje += Puntaje;
+            Program.usuarioActual.Juegos++;
+            Program.usuarioActual.Aciertos += Acertadas;
+
+            Puntaje = 0;
+            Acertadas = 0;
+
+            Console.WriteLine("\nToque una tecla para volver...");
+            Console.ReadKey(true);
+
             Program.MenuPrincipal();
         }
 
         public static void verificarSeleccion(Pregunta pregunta)
         {
-            string selector = Console.ReadLine();
+            int selector = Herramienta.IngresoEnteros();
             int seleccion = 0;
+            bool error = true;
 
-            if (selector == "1")
+            while (error)
             {
-                seleccion = pregunta.Opciones[0].Id;
-            }
-            else if (selector == "2")
-            {
-                seleccion = pregunta.Opciones[1].Id;
-            }
-            else if (selector == "3")
-            {
-                seleccion = pregunta.Opciones[2].Id;
-            }
-            else if (selector == "4")
-            {
-                seleccion = pregunta.Opciones[3].Id;
-            }
-            else
-            {
-                Console.WriteLine("Vuelve a intentarlo. Selecciona un numero del 1 al 4... ");
-                verificarSeleccion(pregunta);
+                if (selector == 1)
+                {
+                    seleccion = pregunta.Opciones[0].Id;
+                    error = false;
+                }
+                else if (selector == 2)
+                {
+                    seleccion = pregunta.Opciones[1].Id;
+                    error = false;
+                }
+                else if (selector == 3)
+                {
+                    seleccion = pregunta.Opciones[2].Id;
+                    error = false;
+                }
+                else if (selector == 4)
+                {
+                    seleccion = pregunta.Opciones[3].Id;
+                    error = false;
+                }
+                else
+                {
+                    Console.Write("\nVuelve a intentarlo. Selecciona un numero del 1 al 4: ");
+                    selector = Herramienta.IngresoEnteros();
+                    Console.WriteLine();
+                }
             }
 
             if (seleccion == pregunta.RespuestaCorrecta)
             {
-                Console.WriteLine("Respuesta CORRECTA");
-                Program.puntaje += pregunta.Dificultad.puntos;
+                Console.WriteLine("\nRespuesta CORRECTA");
+                Puntaje += pregunta.Dificultad.puntos;
+                Acertadas++;
             }
             else
             {
-                Console.WriteLine("Respuesta INCORRECTA");
-                Program.puntaje -= pregunta.Dificultad.puntos / 2;
+                Console.WriteLine("\nRespuesta INCORRECTA");
             }
         }
     }

@@ -36,7 +36,7 @@ namespace QuizTp3.Controladores.Autenticacion
             SQLiteDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
-                return new Usuario(dr.GetInt32(0), dr.GetString(1), dr.GetString(2), dr.GetInt32(3));
+                return new Usuario(dr.GetInt32(0), dr.GetString(1), dr.GetString(2), dr.GetInt32(3), dr.GetInt32(4), dr.GetInt32(5), dr.GetInt32(6));
             }
 
             return null;

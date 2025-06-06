@@ -14,6 +14,7 @@ namespace QuizTp3.Controladores
         public static void GetPuntos()
         {
             Console.Clear();
+            Program.usuarios = [];
             SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM user");
             cmd.Connection = Conexion.Connection;
             SQLiteDataReader dr = cmd.ExecuteReader();
@@ -24,86 +25,59 @@ namespace QuizTp3.Controladores
                 u.Username = dr.GetString(1);
                 u.Pwd = dr.GetString(2);
                 u.Puntaje = dr.GetInt32(3);
+                u.Promedio = dr.GetInt32(4);
+                u.Juegos = dr.GetInt32(5);
+                u.Aciertos = dr.GetInt32(6);
                 Program.usuarios.Add(u);
             }
             seleccionPodio();
         }
         private static void seleccionPodio()
         {
-            string[] podios = new string[] { "Segun los puntos", "Segun el promedio de respuestas correctas" };
+            string[] podios = new string[] { "Segun los puntos", "Segun el promedio de respuestas correctas", "Volver" };
             int podio = Herramienta.MenuSeleccionar(podios, 1, "Selecciona el podio");
             switch (podio)
             {
-                case 1: sPuntos(Program.usuarios); break;
-                case 2: sPromedio(Program.usuarios); break;
+                case 1: sPuntos(Program.usuarios); seleccionPodio(); break;
+                case 2: sPromedio(Program.usuarios); seleccionPodio(); break;
+                case 3: return;
             }
         }
 
         private static void sPuntos(List<Usuario> usuarios)
         {
-            List<Usuario> usuariosOrdenados = new List<Usuario>();
-            List<int> puntosOrdenados = new List<int>();
-            List<int> puntos = new List<int>();
-            for (int i = 0; i < usuarios.Count; i++)
-            {
-                puntos.Add(usuarios[i].Puntaje);
-            }
-            for (int i = 0; i < puntos.Count; i++)
-            {
-                puntosOrdenados.Add(puntos.Max());
-                puntos.Remove(puntos[i]);
-            }
-            for (int i = 0; i < puntos.Count; i++)
-            {
-                for (int j = 0; j < usuarios.Count; j++)
-                {
-                    if (usuarios[j].Puntaje == puntos[i])
-                    {
-                        usuariosOrdenados.Add(usuarios[j]);
-                    }
-                    else { }
-                }
-            }
+            Console.Clear();
 
 
             Console.WriteLine("Podio segun puntaje: ");
-            for (int i = 0; i < usuariosOrdenados.Count; i++)
+            int i = 0;
+            foreach (Usuario usuario in usuarios.OrderByDescending(u => u.Puntaje).ToList())
             {
-                Console.WriteLine($"{i + 1}. {usuariosOrdenados[i].Username}: {usuariosOrdenados[i].Puntaje}");
+                Console.WriteLine($"{i + 1}. {usuario.Username}: {usuario.Puntaje}");
+                i++;
             }
+
+            Console.WriteLine("\nToque una tecla para volver...");
+            Console.ReadKey(true);
         }
         private static void sPromedio(List<Usuario> usuarios)
         {
-            List<Usuario> usuariosOrdenados = new List<Usuario>();
-            List<int> promediosOrdenados = new List<int>();
-            List<int> promedios = new List<int>();
-            for (int i = 0; i < usuarios.Count; i++)
+            Console.Clear();
+
+
+            Console.WriteLine("Podio segun la cantidad de aciertos promedio: ");
+            int i = 0;
+
+            foreach (Usuario usuario in usuarios.OrderByDescending(u => u.Juegos != 0 ? u.Aciertos/u.Juegos : 0).ToList())
             {
-                promedios.Add(usuarios[i].Puntaje);
-            }
-            for (int i = 0; i < promedios.Count; i++)
-            {
-                promediosOrdenados.Add(promedios.Max());
-                promedios.Remove(promedios[i]);
-            }
-            for (int i = 0; i < promedios.Count; i++)
-            {
-                for (int j = 0; j < usuarios.Count; j++)
-                {
-                    if (usuarios[j].Puntaje == promedios[i])
-                    {
-                        usuariosOrdenados.Add(usuarios[j]);
-                    }
-                    else { }
-                }
+                int promedio = usuario.Juegos != 0 ? usuario.Aciertos / usuario.Juegos : 0;
+                Console.WriteLine($"{i + 1}. {usuario.Username}: {promedio}");
+                i++;
             }
 
 
-            Console.WriteLine("Podio segun puntaje: ");
-            for (int i = 0; i < usuariosOrdenados.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {usuariosOrdenados[i].Username}: {usuariosOrdenados[i].Puntaje}");
-            }
+            Console.WriteLine("\nToque una tecla para volver...");
+            Console.ReadKey(true);
         }
     }
 }

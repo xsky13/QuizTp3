@@ -13,7 +13,6 @@ namespace QuizTp3
         public static List<Categoria> categorias = new List<Categoria>();
         public static List<Dificultad> dificultades = new List<Dificultad>();
         public static List<Pregunta> preguntasActuales = new List<Pregunta>();
-        public static int puntaje = 0;
         public static List<Usuario> usuarios = new List<Usuario>();
         static void Main(string[] args)
         {
@@ -33,14 +32,15 @@ namespace QuizTp3
             int seleccion = Herramienta.MenuSeleccionar(opciones, 1, $"Bienvenido, {usuarioActual.Username}");
             switch (seleccion)
             {
-                case 1: pPregunta.GetAll(usuarioActual, categorias, dificultades); break;
-                case 2: nUsuario.GetPuntos(); break;
+                case 1: pPregunta.GetAll(usuarioActual, categorias, dificultades); MenuPrincipal(); break;
+                case 2: nUsuario.GetPuntos(); MenuPrincipal();  break;
                 case 3: break;
             }
             Conexion.CloseConnection();
         }
         static void Menu()
         {
+            //nUsuario.GetPuntos(); Menu();
             string[] opciones = { "Registrarse", "Iniciar sesion" };
             int opcion = Herramienta.MenuSeleccionar(opciones, 0, "Eliga una opcion");
 
