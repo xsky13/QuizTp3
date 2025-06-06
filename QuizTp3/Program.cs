@@ -13,11 +13,16 @@ namespace QuizTp3
         public static List<Categoria> categorias = new List<Categoria>();
         public static List<Dificultad> dificultades = new List<Dificultad>();
         public static List<Pregunta> preguntasActuales = new List<Pregunta>();
+        public static int puntaje = 0;
+        public static List<Usuario> usuarios = new List<Usuario>();
         static void Main(string[] args)
         {
             Conexion.OpenConnection();
             IniciarDatos();
-            Menu();
+            while (!loggedIn)
+            {
+                Menu();
+            }
             MenuPrincipal();
         }
 
@@ -29,7 +34,7 @@ namespace QuizTp3
             switch (seleccion)
             {
                 case 1: pPregunta.GetAll(usuarioActual, categorias, dificultades); break;
-                //case 2: nJuego.; break;
+                case 2: nUsuario.GetPuntos(); break;
                 case 3: break;
             }
             Conexion.CloseConnection();
