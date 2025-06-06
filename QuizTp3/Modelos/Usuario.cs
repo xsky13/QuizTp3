@@ -11,15 +11,21 @@ namespace QuizTp3.Modelos
         public int Id{ get; set; }
         public string Username { get; set; }
         public string Pwd { get; set; }
-        public int PuntajeMax { get; set; }
+
+        public int Puntaje { get; set; }
+        public int Promedio { get; set; }
+
         public Usuario() { }
 
-        public Usuario(int id, string username, string pwd, int puntajeMax)
+        public Usuario(int id, string username, string pwd, int puntaje, int promedio)
+
         {
             Id = id;
             Username = username;
             Pwd = pwd;
-            PuntajeMax = puntajeMax;
+            Puntaje = puntaje;
+            Promedio = promedio;
+
         }
     }
 }
