@@ -49,7 +49,11 @@ namespace QuizTp3.Controladores.Autenticacion
             string hash = AuthHelper.Hashear(pwd);
             int id = Persistencia.Save(usuario, hash);
 
+<<<<<<< HEAD
             Usuario u = new(id, usuario, pwd, 0, 0, 0, 0);
+=======
+            Usuario u = new(id, usuario, pwd, 0, 0);
+>>>>>>> c8cffb5c5dcb1a2f07c664546dc3c8623ec7b841
 
             // iniciar al usuario en el sistema
             Program.loggedIn = true;

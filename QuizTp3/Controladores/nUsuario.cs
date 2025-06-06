@@ -13,6 +13,7 @@ namespace QuizTp3.Controladores
     {
         public static void GetPuntos()
         {
+            Program.usuarios.Clear();
             Console.Clear();
             Program.usuarios = [];
             SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM user");
@@ -26,8 +27,11 @@ namespace QuizTp3.Controladores
                 u.Pwd = dr.GetString(2);
                 u.Puntaje = dr.GetInt32(3);
                 u.Promedio = dr.GetInt32(4);
+<<<<<<< HEAD
                 u.Juegos = dr.GetInt32(5);
                 u.Aciertos = dr.GetInt32(6);
+=======
+>>>>>>> c8cffb5c5dcb1a2f07c664546dc3c8623ec7b841
                 Program.usuarios.Add(u);
             }
             seleccionPodio();
@@ -46,9 +50,13 @@ namespace QuizTp3.Controladores
 
         private static void sPuntos(List<Usuario> usuarios)
         {
+<<<<<<< HEAD
             Console.Clear();
 
 
+=======
+            List<Usuario> usuariosOrdenados = usuarios.OrderByDescending(u => u.Puntaje).ToList();
+>>>>>>> c8cffb5c5dcb1a2f07c664546dc3c8623ec7b841
             Console.WriteLine("Podio segun puntaje: ");
             int i = 0;
             foreach (Usuario usuario in usuarios.OrderByDescending(u => u.Puntaje).ToList())
@@ -56,6 +64,7 @@ namespace QuizTp3.Controladores
                 Console.WriteLine($"{i + 1}. {usuario.Username}: {usuario.Puntaje}");
                 i++;
             }
+<<<<<<< HEAD
 
             Console.WriteLine("\nToque una tecla para volver...");
             Console.ReadKey(true);
@@ -78,6 +87,21 @@ namespace QuizTp3.Controladores
 
             Console.WriteLine("\nToque una tecla para volver...");
             Console.ReadKey(true);
+=======
+            Console.ReadKey(true);
+            Program.MenuPrincipal();
+        }
+        private static void sPromedio(List<Usuario> usuarios)
+        {
+            List<Usuario> usuariosOrdenados = usuarios.OrderByDescending(u => u.Promedio).ToList();
+            Console.WriteLine("Podio segun Promedio de respuestas correctas: ");
+            for (int i = 0; i < usuariosOrdenados.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {usuariosOrdenados[i].Username}: {usuariosOrdenados[i].Promedio}%");
+            }
+            Console.ReadKey(true);
+            Program.MenuPrincipal();
+>>>>>>> c8cffb5c5dcb1a2f07c664546dc3c8623ec7b841
         }
     }
 }

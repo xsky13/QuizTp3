@@ -17,7 +17,6 @@ namespace QuizTp3
         static void Main(string[] args)
         {
             Conexion.OpenConnection();
-            IniciarDatos();
             while (!loggedIn)
             {
                 Menu();
@@ -28,6 +27,7 @@ namespace QuizTp3
         public static void MenuPrincipal()
         {
             Console.Clear();
+            IniciarDatos();
             string[] opciones = { "Jugar", "Podio", "Salir" };
             int seleccion = Herramienta.MenuSeleccionar(opciones, 1, $"Bienvenido, {usuarioActual.Username}");
             switch (seleccion)
