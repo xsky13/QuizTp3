@@ -19,24 +19,28 @@ namespace QuizTp3
             Conexion.OpenConnection();
             IniciarDatos();
             Menu();
+            MenuPrincipal();
+        }
+
+        public static void MenuPrincipal()
+        {
             Console.Clear();
             string[] opciones = { "Jugar", "Podio", "Salir" };
             int seleccion = Herramienta.MenuSeleccionar(opciones, 1, $"Bienvenido, {usuarioActual.Username}");
             switch (seleccion)
             {
-                case 1: nJuego.Jugar(usuarioActual, categorias, dificultades); break;
+                case 1: pPregunta.GetAll(usuarioActual, categorias, dificultades); break;
                 //case 2: nJuego.; break;
                 case 3: break;
             }
             Conexion.CloseConnection();
         }
-
         static void Menu()
         {
             string[] opciones = { "Registrarse", "Iniciar sesion" };
             int opcion = Herramienta.MenuSeleccionar(opciones, 0, "Eliga una opcion");
 
-            switch(opcion)
+            switch (opcion)
             {
                 case 1: Registrar.Registrarse(); break;
                 case 2: Login.Main(); break;
