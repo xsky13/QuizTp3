@@ -14,7 +14,6 @@ namespace QuizTp3.Controladores
         public static void GetAll(Usuario usuario, List<Categoria> categorias, List<Dificultad> dificultades)
         {
             Console.Clear();
-            Program.preguntasActuales.Clear();
             categorias.Add(new Categoria(6, "Todas"));
             dificultades.Add(new Dificultad(4, 0, "Todas"));
             int categoriaId = Herramienta.MenuSeleccionar(categorias.Select(c => c.nombre).ToArray(), 0, "Categorias");
